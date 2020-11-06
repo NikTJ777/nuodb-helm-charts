@@ -39,15 +39,11 @@ jobs:
 
       # specify any bash command here prefixed with `run: `
       - run:
-          name: setup
-          command: |
-            chmod a+x scripts/ci/*.sh
-            scripts/ci/install_deps.sh
-
-      - run:
           name: Run the tests
           command: |
             chmod a+x scripts/ci/*.sh
-            test_suites=("basic" "minikube-short" "minikube-long" "minikube-diagnostics" "minikube-upgrade")
+            scripts/ci/install_deps.sh
+            [ "$CIRCLE_NODE_INDEX" = "0" ] && TEST_SUITE="basic" scripts/ci/determine_and_run_tests.sh
+            test_suites=("minikube-short" "minikube-long" "minikube-diagnostics" "minikube-upgrade")
             export TEST_SUITE=${test_suites[$CIRCLE_NODE_INDEX]}
             scripts/ci/determine_and_run_tests.sh
