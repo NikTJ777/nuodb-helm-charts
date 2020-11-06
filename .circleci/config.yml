@@ -28,9 +28,7 @@ jobs:
       MINISHIFT_VERSION: "1.34.2"
       MINIKUBE_WANTUPDATENOTIFICATION: false
       MINIKUBE_WANTREPORTERRORPROMPT: false
-      MINIKUBE_HOME: "$HOME"
       CHANGE_MINIKUBE_NONE_USER: true
-      KUBECONFIG: "$HOME/.kube/config"
       REQUIRES_MINIKUBE: true
 
     parallelism: 4
@@ -42,6 +40,8 @@ jobs:
       - run:
           name: Run the tests
           command: |
+            export KUBECONFIG="$HOME/.kube/config"
+            export MINIKUBE_HOME="$HOME"
             chmod a+x scripts/ci/*.sh
             scripts/ci/install_deps.sh
             [ "$CIRCLE_NODE_INDEX" = "0" ] && TEST_SUITE="basic" scripts/ci/determine_and_run_tests.sh
