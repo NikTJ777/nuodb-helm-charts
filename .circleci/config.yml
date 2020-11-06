@@ -31,6 +31,7 @@ jobs:
       MINIKUBE_HOME: "$HOME"
       CHANGE_MINIKUBE_NONE_USER: true
       KUBECONFIG: "$HOME/.kube/config"
+      REQUIRES_MINIKUBE: true
 
     parallelism: 4
     
