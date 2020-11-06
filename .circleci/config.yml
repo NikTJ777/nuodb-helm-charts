@@ -32,7 +32,7 @@ jobs:
       CHANGE_MINIKUBE_NONE_USER: true
       KUBECONFIG: "$HOME/.kube/config"
 
-    parallelism: 5
+    parallelism: 4
     
     steps:
       - checkout
